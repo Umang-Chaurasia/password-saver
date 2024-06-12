@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Saver</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        input, button {
+            margin: 5px 0;
+            padding: 10px;
+            width: 300px;
+        }
+        button {
+            width: 100px;
+        }
+        .password-list {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Password Saver</h1>
+<div>
+    <input type="text" id="site" placeholder="Enter Site">
+    <input type="password" id="password" placeholder="Enter Password">
+    <button onclick="savePassword()">Save</button>
+</div>
+
+<h2>Saved Passwords</h2>
+<ul id="passwordList" class="password-list"></ul>
+
+<script>
+    const passwords = {};
+
+    function savePassword() {
+        const site = document.getElementById('site').value;
+        const password = document.getElementById('password').value;
+
+        if (site && password) {
+            passwords[site] = password;
+            displayPasswords();
+            document.getElementById('site').value = '';
+            document.getElementById('password').value = '';
+        } else {
+            alert('Please enter both site and password.');
+        }
+    }
+
+    function displayPasswords() {
+        const passwordList = document.getElementById('passwordList');
+        passwordList.innerHTML = '';
+
+        for (const site in passwords) {
+            const li = document.createElement('li');
+            li.textContent = `${site}: ${passwords[site]}`;
+            passwordList.appendChild(li);
+        }
+    }
+</script>
+
+</body>
+</html>
